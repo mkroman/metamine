@@ -4,6 +4,8 @@ require 'socket'
 
 module Metamine
   class Connection
+    include Protocol
+    
     def initialize delegate
       @delegate = delegate
     end
@@ -18,5 +20,14 @@ module Metamine
 
       @delegate.connection_terminated
     end
+    
+    def transmit name, *args
+      protocol = Protocol.__send__ name, *args
+      
+      puts ">> #{protocol.join.inspect}"
+      @socket.write "#{protocol.join}"
+      @socket.flush
+    end
+    
   end
 end

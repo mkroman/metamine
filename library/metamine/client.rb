@@ -2,8 +2,12 @@
 
 module Metamine
   class Client
+    include Handling
+    
     def initialize options
+      @username   = options[:username] or "missing username"
       @connection = Connection.new self
+      
       @options = options
     end
 
@@ -13,6 +17,7 @@ module Metamine
 
     def connection_established
       puts "-- Connection has been established"
+      @connection.transmit :identification, "mkroman"
     end
 
     def connection_terminated
@@ -20,7 +25,12 @@ module Metamine
     end
 
     def got_packet packet
-      # …
+      puts "<< #{packet.to_s.inspect}"
+      method_name = :"got_#{packet.name}"
+      
+      if respond_to? method_name
+        __send__ method_name, packet
+      end
     end
   end
 end

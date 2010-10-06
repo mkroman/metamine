@@ -1,11 +1,13 @@
 # encoding: utf-8
 
-require 'metamine/client'
-require 'metamine/packet'
+require 'metamine/connection/protocol'
+require 'metamine/connection/packet'
+require 'metamine/client/handling'
 require 'metamine/connection'
+require 'metamine/client'
 
 module Metamine
-  Version = [0, 0, 1]
+  Version = 0, 0, 1
 
 module_function
   
