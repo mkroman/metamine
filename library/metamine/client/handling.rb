@@ -3,8 +3,9 @@
 module Metamine
   class Client
     module Handling
+    protected
       
-      def got_error packet
+      def got_termination packet
         puts "!! ERROR !! ~ #{packet.data.inspect}"
       end
       

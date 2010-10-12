@@ -17,7 +17,7 @@ module Metamine
 
     def connection_established
       puts "-- Connection has been established"
-      @connection.transmit :identification, "mkroman"
+      @connection.transmit :handshake, 'mkroman'
     end
 
     def connection_terminated
@@ -31,6 +31,14 @@ module Metamine
       if respond_to? method_name
         __send__ method_name, packet
       end
+    end
+    
+  private
+    
+    def passhash; @passhash ||= retrieve_passhash end
+    
+    def retrieve_passhash
+      
     end
   end
 end

@@ -24,8 +24,8 @@ module Metamine
     def transmit name, *args
       protocol = Protocol.__send__ name, *args
       
-      puts ">> #{protocol.join.inspect}"
-      @socket.write "#{protocol.join}"
+      puts ">> #{protocol.inspect}"
+      @socket.write "#{protocol}"
       @socket.flush
     end
     
