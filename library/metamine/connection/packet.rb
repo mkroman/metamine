@@ -1,5 +1,4 @@
 # encoding: utf-8
-# encoding: utf-8
 
 module Metamine
   class Connection
@@ -7,14 +6,11 @@ module Metamine
       attr_accessor :name, :buffer
       
       def self.parse data
-        new(data[0].ord).tap do |this|
-          this.buffer = data[1..-1]
-        end
+        new data
       end
       
-      def initialize byte
-        @name   = Protocol::Names[byte]
-        @buffer = [byte].pack ?w
+      def initialize buffer
+        @buffer = buffer
       end
       
       def Byte byte
@@ -33,6 +29,8 @@ module Metamine
       def Long long
         @buffer.<< [long].pack ?G
       end
+
+      def name; Protocol::Names[@buffer[0].ord] end
       
       def to_s;    @buffer end
       def inspect; @buffer.inspect end

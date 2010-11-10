@@ -6,7 +6,11 @@ module Metamine
     protected
       
       def got_termination packet
-        puts "!! ERROR !! ~ #{packet.inspect}"
+        #puts "!! ERROR !! ~ #{packet.inspect}"
+      end
+
+      def got_handshake packet
+        authenticate_server packet.to_s[3..-1]
       end
       
     end

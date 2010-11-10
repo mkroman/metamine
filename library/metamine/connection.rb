@@ -15,17 +15,18 @@ module Metamine
       @delegate.connection_established
 
       until @socket.eof?
-        @delegate.got_packet Packet.parse @socket.recv 512
+        buffer = @socket.readbyte.chr << @socket.readpartial(1024)
+        @delegate.got_packet Packet.parse buffer
       end
 
       @delegate.connection_terminated
     end
     
     def transmit name, *args
-      protocol = Protocol.__send__ name, *args
+      packet = Protocol.__send__ name, *args
       
-      puts ">> #{protocol.inspect}"
-      @socket.write "#{protocol}"
+      puts " \e[32m→\e[0m | \e[1m#{packet.name.to_s.ljust 15}\e[0m | #{packet.to_s.inspect}"
+      @socket.write "#{packet}"
       @socket.flush
     end
     
