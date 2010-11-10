@@ -15,7 +15,7 @@ module Metamine
       @delegate.connection_established
 
       until @socket.eof?
-        @delegate.got_packet Packet.parse @socket.gets
+        @delegate.got_packet Packet.parse @socket.recv 512
       end
 
       @delegate.connection_terminated

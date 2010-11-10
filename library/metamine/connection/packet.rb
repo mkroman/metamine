@@ -29,6 +29,10 @@ module Metamine
       def Integer integer
         @buffer.<< [integer].pack ?N
       end
+
+      def Long long
+        @buffer.<< [long].pack ?G
+      end
       
       def to_s;    @buffer end
       def inspect; @buffer.inspect end

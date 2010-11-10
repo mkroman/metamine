@@ -6,7 +6,7 @@ module Metamine
     protected
       
       def got_termination packet
-        puts "!! ERROR !! ~ #{packet.data.inspect}"
+        puts "!! ERROR !! ~ #{packet.inspect}"
       end
       
     end

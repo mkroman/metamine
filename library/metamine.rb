@@ -5,6 +5,7 @@ require 'metamine/connection/packet'
 require 'metamine/client/handling'
 require 'metamine/connection'
 require 'metamine/client'
+require 'open-uri'
 
 module Metamine
   Version = 0, 0, 1

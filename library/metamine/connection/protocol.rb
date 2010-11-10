@@ -3,6 +3,8 @@
 module Metamine
   class Connection
     module Protocol
+      Version = 4
+
     module_function
     
       Names = {
@@ -36,9 +38,11 @@ module Metamine
       
       def identification username, password = 'Password'
         packet 0x01 do
-          Integer 2
+          Integer Protocol::Version
           String  username
           String  password
+          Long 0
+          Byte 0
         end
       end
       
