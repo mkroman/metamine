@@ -30,7 +30,7 @@ module Metamine
     end
 
     def got_packet packet
-      puts " \e[31m←\e[0m | \e[1m#{packet.name.to_s.ljust 15}\e[0m | #{packet.to_s.inspect}"
+      puts " \e[31m←\e[0m | \e[1m#{packet.name.to_s.ljust 15}\e[0m | #{packet.to_s.length}: #{packet.inspect[0..25]}"
       method_name = :"got_#{packet.name}"
       
       if respond_to? method_name
@@ -69,6 +69,10 @@ module Metamine
         if data == 'OK'
           @authenticated = true
           @connection.transmit :identification, @options[:username]
+          Thread.new do
+            sleep 5
+            @connection.transmit :message, "test message"
+          end
         end
       end
     end

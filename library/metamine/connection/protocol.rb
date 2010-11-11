@@ -45,6 +45,12 @@ module Metamine
           Byte 0
         end
       end
+
+      def message message
+        packet ?\x03 do
+          String message
+        end
+      end
       
       def packet name, &block
         Packet.new(name).tap do |this|

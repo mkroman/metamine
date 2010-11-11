@@ -15,8 +15,9 @@ module Metamine
       @delegate.connection_established
 
       until @socket.eof?
-        buffer = @socket.readbyte.chr << @socket.readpartial(1024)
+        buffer = @socket.readbyte.chr << @socket.readpartial(40960)
         @delegate.got_packet Packet.parse buffer
+        buffer = nil
       end
 
       @delegate.connection_terminated
